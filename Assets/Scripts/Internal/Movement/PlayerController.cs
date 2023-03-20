@@ -6,22 +6,26 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerInput input;
-    // Start is called before the first frame update
+    [SerializeField] MovementSystem movementMaster;
+    InputAction move;
+    InputAction mousePos;
+
     private void Awake() {
         //init player input class
         input = new PlayerInput();
+        movementMaster = GetComponent<MovementSystem>();
     }
     private void OnEnable() {
-        Debug.LogWarning("fuck u");
+        move = input.Player.Move;
+        mousePos = input.Player.Look;
+        mousePos.Enable();
+        move.Enable();
     }
-    void Start()
-    {
-        
+    private void OnDisable() {
+        move.Disable();
+        mousePos.Disable();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log("fuck u");
+    private void Update() {
+        movementMaster.SetMovement(move.ReadValue<Vector2>());
     }
 }
