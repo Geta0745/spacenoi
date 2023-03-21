@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 100
   maxStamina: 200
-  normalSpeed: 8
+  normalSpeed: 5
   normalAttackDamage: 5
   standardStamina: 100
   sprintMultiply: 2

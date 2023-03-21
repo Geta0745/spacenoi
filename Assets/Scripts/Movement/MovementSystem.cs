@@ -12,6 +12,7 @@ public class MovementSystem : MonoBehaviour
     [SerializeField] float currentSpeed = 10f;
     [SerializeField] float rotationSpeed = 180f;
     [SerializeField] float currentStemina;
+    [SerializeField] Animator anime;
     float isSprint = 0f;
     // Start is called before the first frame update
     void Start()
@@ -26,11 +27,15 @@ public class MovementSystem : MonoBehaviour
         if(isSprint != 0f && currentStemina > 0f){
             currentSpeed = templateState.normalSpeed * templateState.sprintMultiply;
             currentStemina = Mathf.Clamp(currentStemina - templateState.SSconsumeRate,0f,templateState.maxStamina);
+            anime.SetBool("run",true);
         }else{
             currentSpeed = templateState.normalSpeed;
+            anime.SetBool("run",false);
         }
+        anime.SetFloat("speed",currentSpeed);
         if (movement.x != 0 || movement.y != 0)
         {
+            anime.SetBool("run",true);
             float targetAngle = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg;
             Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
             characterBody.rotation = Quaternion.Lerp(characterBody.rotation, targetRotation, rotationSpeed * Time.deltaTime);

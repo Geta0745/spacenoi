@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     }
     private void Update() {
         movementMaster.SetMovement(move.ReadValue<Vector2>());
-        Debug.Log(sprint.ReadValue<float>());
         movementMaster.setSprint(sprint.ReadValue<float>());
     }
 }
