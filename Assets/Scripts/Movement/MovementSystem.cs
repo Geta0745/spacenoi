@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class MovementSystem : MonoBehaviour
 {
     [SerializeField] Vector2 movement;
     Rigidbody rb;
     [SerializeField] float speed = 10f;
-    [SerializeField] float rotationSpeed = 90f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +17,10 @@ public class MovementSystem : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 moveDir = transform.forward * speed * movement.y *Time.deltaTime;
-        Quaternion rotation = Quaternion.Euler(0f, movement.x * rotationSpeed * Time.deltaTime, 0f);
-        rb.MovePosition(rb.position + moveDir);
-        rb.MoveRotation(rb.rotation * rotation);
+        Vector3 vertical = transform.forward * speed * movement.y *Time.deltaTime;
+        Vector3 horizontal = transform.right * speed * movement.x * Time.deltaTime;
+        //Quaternion rotation = Quaternion.Euler(0f, movement.x * rotationSpeed * Time.deltaTime, 0f);
+        rb.MovePosition(rb.position + (vertical+horizontal));
     }
 
     public void SetMovement(Vector2 movement){
