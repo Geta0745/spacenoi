@@ -5,13 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody),typeof(EntityState))]
 public class MovementSystem : MonoBehaviour
 {
-    [SerializeField] EntityState templateState;
+    public EntityState templateState;
     [SerializeField] Vector2 movement;
     [SerializeField] Transform characterBody;
     Rigidbody rb;
     [SerializeField] float currentSpeed = 10f;
     [SerializeField] float rotationSpeed = 180f;
-    [SerializeField] float currentStemina;
+    public float currentStemina;
     [SerializeField] Animator anime;
     float isSprint = 0f;
     // Start is called before the first frame update
@@ -24,7 +24,7 @@ public class MovementSystem : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(isSprint != 0f && currentStemina > 0f){
+        if(isSprint != 0f && currentStemina > 0f && (movement.x != 0f || movement.y != 0f)){
             currentSpeed = templateState.normalSpeed * templateState.sprintMultiply;
             currentStemina = Mathf.Clamp(currentStemina - templateState.SSconsumeRate,0f,templateState.maxStamina);
             anime.SetBool("run",true);

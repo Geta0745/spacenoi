@@ -18,4 +18,4 @@ MonoBehaviour:
   normalAttackDamage: 5
   standardStamina: 100
   sprintMultiply: 2
-  SSconsumeRate: 0.1
+  SSconsumeRate: 0.01
