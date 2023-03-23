@@ -38,7 +38,7 @@ public class MovementSystem : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         // Check if sprinting
         if (isSprint != 0f && currentStemina > 0f && (movement.x != 0f || movement.y != 0f))

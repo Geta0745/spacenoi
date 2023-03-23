@@ -9,11 +9,10 @@ public class AIMain : MonoBehaviour
     MovementSystem movementMaster;
     [SerializeField] Transform target;
     NavMeshPath path;
-    Vector2 movement;
-    float PicknextWaypointDistance = 4f;
+    [SerializeField] float PicknextWaypointDistance = 4f;
     int currentNode = 0;
     [SerializeField] float calPathRate = 10f;
-    [SerializeField] float dotProdFront, dotProdRear;
+    float dotProdFront, dotProdRear;
     private Color RandomPathColor;
     // Start is called before the first frame update
     void Start()
@@ -41,8 +40,7 @@ public class AIMain : MonoBehaviour
                 currentNode++;
             }
         }else{
-            movement = Vector2.zero;
-            movementMaster.SetMovement(movement);
+            movementMaster.SetMovement(Vector2.zero);
         }
         for (int i = 0; i < path.corners.Length - 1; i++)//draw line
         {
