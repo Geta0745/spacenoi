@@ -16,7 +16,6 @@ public class DayCycleSystem : MonoBehaviour
     {
         // Calculate the angle to rotate the Sun object
         float angleToRotate = (Time.deltaTime / cycle) * 360f;
-        Debug.Log(angleToRotate);
         // Rotate the Sun object around the Y axis
         transform.Rotate(Vector3.left, angleToRotate);
     }

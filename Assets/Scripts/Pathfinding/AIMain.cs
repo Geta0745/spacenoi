@@ -12,8 +12,11 @@ public class AIMain : MonoBehaviour
     [SerializeField] float PicknextWaypointDistance = 4f;
     int currentNode = 0;
     [SerializeField] float calPathRate = 10f;
+    [SerializeField] float distSprint = 10f; //aka distance when ai start to sprint
+    [SerializeField] float maxFollowDistance = 100f;
     float dotProdFront, dotProdRear;
     private Color RandomPathColor;
+    float toPlayerDistance;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,20 +29,30 @@ public class AIMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentNode < path.corners.Length){ //เช็คว่าสุดเส้นทางยัง
+        if(target == null){
+            return;
+        }else if(Vector3.Distance(transform.position,target.position) >= maxFollowDistance){
+            target = null;
+            return;
+        }
+        if (currentNode < path.corners.Length)//เช็คว่าสุดเส้นทางยัง
+        { 
+            toPlayerDistance = Vector3.Distance(transform.position, target.position);//calculate distance btw player and ai
+
             dotProdRear = Vector3.Dot(transform.right, path.corners[currentNode] - transform.position); //คิดค่าคำนวณการหัน
             dotProdFront = Vector3.Dot(transform.forward, path.corners[currentNode] - transform.position); //คิดค่าคำนวณการเดิน
-            if(Vector3.Distance(transform.position,target.position) >= 10f){ //ระยะวิ่ง
-                movementMaster.setSprint(1f);
-            }else{
-                movementMaster.setSprint(0f);
-            }
-            movementMaster.SetMovement(new Vector2(Mathf.Clamp(dotProdRear,-1f,1f),Mathf.Clamp(dotProdFront,-1f,1f))); //สั่งเดิน
+            
+            movementMaster.setSprint((toPlayerDistance >= distSprint) ? 1f : 0f);//set sprint state depend on distance
+
+            movementMaster.SetMovement(new Vector2(Mathf.Clamp(dotProdRear, -1f, 1f), Mathf.Clamp(dotProdFront, -1f, 1f))); //สั่งเดิน
+
             if (Vector3.Distance(transform.position, path.corners[currentNode]) < PicknextWaypointDistance)//pick next node
             {
                 currentNode++;
             }
-        }else{
+        }
+        else
+        {
             movementMaster.SetMovement(Vector2.zero);
         }
         for (int i = 0; i < path.corners.Length - 1; i++)//draw line
@@ -47,9 +60,15 @@ public class AIMain : MonoBehaviour
             Debug.DrawLine(path.corners[i], path.corners[i + 1], RandomPathColor);
         }
     }
+
+    bool FindPlayer(){
+        
+        return true;
+    }
     void CalculatePath()
     {
         NavMeshHit hit;
+        //check ai is in path?
         if (NavMesh.SamplePosition(transform.position, out hit, 0.1f, NavMesh.AllAreas))
         {
             // object is on NavMesh
@@ -65,7 +84,6 @@ public class AIMain : MonoBehaviour
         else
         {
             // object is not on NavMesh
-
             // Calculate the closest point on the NavMesh to the object's position
             NavMesh.SamplePosition(transform.position, out hit, Mathf.Infinity, NavMesh.AllAreas);
             Vector3 closestPoint = hit.position;
