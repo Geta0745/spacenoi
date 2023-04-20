@@ -6,13 +6,13 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerInput input;
-    [SerializeField] MovementSystem movementMaster;
+    [SerializeField] PlayerMovementSystem movementMaster;
     InputAction move,mousePos,sprint;
 
     private void Awake() {
         //init player input class
         input = new PlayerInput();
-        movementMaster = GetComponent<MovementSystem>();
+        movementMaster = GetComponent<PlayerMovementSystem>();
     }
     private void OnEnable() {
         move = input.Player.Move;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         mousePos.Disable();
     }
     private void Update() {
-        movementMaster.SetMovement(move.ReadValue<Vector2>());
+        movementMaster.SetMovementInput(move.ReadValue<Vector2>());
         movementMaster.setSprint(sprint.ReadValue<float>());
     }
 }

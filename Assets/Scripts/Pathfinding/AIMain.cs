@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(MovementSystem))]
+[RequireComponent(typeof(MainMovementSystem))]
 public class AIMain : MonoBehaviour
 {
-    MovementSystem movementMaster;
+    MainMovementSystem movementMaster;
     [SerializeField] Transform target;
     NavMeshPath path;
     [SerializeField] float PicknextWaypointDistance = 4f;
@@ -22,7 +22,7 @@ public class AIMain : MonoBehaviour
     {
         RandomPathColor = new Color(Random.value, Random.value, Random.value);
         path = new NavMeshPath();
-        movementMaster = GetComponent<MovementSystem>();
+        movementMaster = GetComponent<MainMovementSystem>();
         InvokeRepeating("CalculatePath", 0f, calPathRate); //คำนวณเส้นทางทุกๆ calPathRate
     }
 
@@ -44,7 +44,7 @@ public class AIMain : MonoBehaviour
             
             movementMaster.setSprint((toPlayerDistance >= distSprint) ? 1f : 0f);//set sprint state depend on distance
 
-            movementMaster.SetMovement(new Vector2(Mathf.Clamp(dotProdRear, -1f, 1f), Mathf.Clamp(dotProdFront, -1f, 1f))); //สั่งเดิน
+            movementMaster.SetMovementInput(new Vector2(Mathf.Clamp(dotProdRear, -1f, 1f), Mathf.Clamp(dotProdFront, -1f, 1f))); //สั่งเดิน
 
             if (Vector3.Distance(transform.position, path.corners[currentNode]) < PicknextWaypointDistance)//pick next node
             {
@@ -53,7 +53,7 @@ public class AIMain : MonoBehaviour
         }
         else
         {
-            movementMaster.SetMovement(Vector2.zero);
+            movementMaster.SetMovementInput(Vector2.zero);
         }
         for (int i = 0; i < path.corners.Length - 1; i++)//draw line
         {
