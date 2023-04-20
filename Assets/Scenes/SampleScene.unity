@@ -374,7 +374,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.3826835, y: -0.000000022481215, z: 0.000000009312025, w: 0.92387956}
+  m_LocalRotation: {x: 0.3826835, y: 0.000000022481224, z: -0.00000000931203, w: 0.92387956}
   m_LocalPosition: {x: -6.29, y: 8, z: -20.279999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -791,7 +791,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496199676}
-  m_LocalRotation: {x: 0.3826835, y: -0.000000022481215, z: 0.000000009312025, w: 0.92387956}
+  m_LocalRotation: {x: 0.3826835, y: 0.000000022481224, z: -0.00000000931203, w: 0.92387956}
   m_LocalPosition: {x: -6.29, y: 8, z: -20.279999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6863,11 +6863,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60fb1d142a0df44db89e590c474f3ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat: {fileID: 0}
+  stat: {fileID: 11400000, guid: 17bc2daa150caeb4f998a86498e0e3bd, type: 2}
   currentSpeed: 0
   rotationSpeed: 10
   currentStemina: 0
-  characterBody: {fileID: 0}
+  characterBody: {fileID: 4427613976755987}
   sprintSensitivity: 0
 --- !u!1 &998504612
 GameObject:
