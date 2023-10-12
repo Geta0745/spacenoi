@@ -19,6 +19,7 @@ public class GridNode : MonoBehaviour
     {
         this.type = type;
         this.position = position;
+        
     }
 
 }
